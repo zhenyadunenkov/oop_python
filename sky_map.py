@@ -62,13 +62,14 @@ class SkyMap:
         # в карту (хранит не объекты, а только их параметры):
 
         for obj in self.sky_objects:
-            sky_map.append(*obj.get_id_coords_and_magnintude())
+            for elem in obj.get_id_coords_and_magnintude():
+                sky_map.append(elem)
+        
         
         # оставляем в sky_map только объекты нужной яркости
         sky_map = list(filter(lambda obj: 
                               obj["magnitude"] >= magnitude, sky_map))
         
-            
         # ЧАСТЬ С ПЕРЕВОДОМ ЭКВАТОРИАЛЬНЫХ (универсальных) КООРДИНАТ 
         # В ГОРИЗОНТАЛЬНЫЕ (зависящие от места наблюдения)
         
@@ -131,6 +132,7 @@ class SkyMap:
         
         # оставляем в sky_map только видимые объекты (0 < высота < 180)
 
+        
         sky_map = list(filter(lambda obj: 
                               obj["height"] >= 0, sky_map))
         sky_map = list(filter(lambda obj: 
